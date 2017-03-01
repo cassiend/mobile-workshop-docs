@@ -1,0 +1,6 @@
+- change directions to have quick and nimble added from Carthage build dir
+- change versions for Alamofire, Quick, and Nimble
+- make note to uncheck 'make git repo' box during initial setup
+- update .gitignore
+- replace screenshots with code snippets where possible
+- setup steps ends with starting jenkins, no mention yet of writing tests
