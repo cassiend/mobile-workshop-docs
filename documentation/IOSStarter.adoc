@@ -1,12 +1,21 @@
 :imagesdir: ./images
-This journey begins one late Monday afternoon in Antwerp.
-Our team desperately needs coffee, but none of us dare open the office door.
 
-To leave means code dismemberment and certain death.
+NOTE: This document is a work in progress
 
-* Heading
-** subheading
-*** bullets
+.Setting up a new project in IOS using Swift 3
+* Setting up Xcode with Carthage
+** Alamofire, Nimble, Quick
+* Introducing fastlane
+* Writing first TDD Quick/Nimble test
+* Running test using fastlane in Jenkins
+
+
+
+
+Type the word [userinput]#asciidoc# into the search bar.
+
+<span class="userinput">asciidoc</span>
+
 
 Select File → New → Project.
 
