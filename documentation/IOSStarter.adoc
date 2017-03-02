@@ -1,96 +1,188 @@
 :imagesdir: ./images
 
+= Setting up a new project in IOS using Swift 3
+Cassie Shum & Lily Evans <cshum@thoughtworks.com>
+v1.0, 2017-03-01
+
 NOTE: This document is a work in progress
 
-.Setting up a new project in IOS using Swift 3
-* Setting up Xcode with Carthage
-** Alamofire, Nimble, Quick
-* Introducing fastlane
-* Writing first TDD Quick/Nimble test
-* Running test using fastlane in Jenkins
+
+== Setting up Xcode with Carthage
+// === Alamofire, Nimble, Quick
 
 
+* Select File → New → Project.
+
+image::image1.png[Screenshot to set up project]
+image::image2.png[]
+
+* Do not create a git repo at this point
+
+image::image2b.png[]
+
+image::image3.png[]
+
+* Go to File → Save As Workspace and save it in the same directory as your Xcode project with the same name.
+* Put the project in a workspace due to adding Carthage dependencies as submodules (they must be in a workspace for Xcode to compile) +
+
+image::image4.png[]
 
 
-Type the word [userinput]#asciidoc# into the search bar.
+* Close the Xcode project with File → Close Project.
+* Open the workspace with File → Open.
+* Click on Project and open Manage Schemes...
 
-<span class="userinput">asciidoc</span>
+image::image5.png[]
+* Check the Share box
 
+image::image6.png[]
 
-Select File → New → Project.
+* Create a .gitignore file and add the following file types to ignore from git repository
 
+image::image7.png[]
 
+image::image8.png[]
+----
+# Xcode
 
-Go to File → Save As Workspace and save it in the same directory as your Xcode project with the same name.
-Put the project in a workspace due to adding Carthage dependencies as submodules (they must be in a workspace for Xcode to compile) +
+## Build generated
+build/
+DerivedData/
 
-image::firstImage.png[]
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
 
+## Other
+*.moved-aside
+*.xcuserstate
 
-Close the Xcode project with File → Close Project.
-Open the workspace with File → Open.
-Click on Project and open Manage Schemes...
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
 
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
 
-Check the Share box
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+.build/
 
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+# Pods/
 
-Create a .gitignore file and add the following file types to ignore from git repository
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
 
+Carthage/Build
 
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/xcov_report
+fastlane/README.md
 
+*.mobileprovision
+----
 
-github "Alamofire/Alamofire" ~> 3.4
+* Create a Cartfile
 
+image::image9.png[]
 
+* Add Alamofire to Cartfile:
 
-github "Quick/Quick" ~> 0.9.2
-github "Quick/Nimble" ~> 4.1.0
+image::image9b.png[]
 
+----
+github "Alamofire/Alamofire" ~> 4.4.0
+----
 
+* Create a Cartfile.private
+* Add Quick and Nimble to Cartfile.private:
 
+image::image9c.png[]
 
+----
+github "Quick/Quick" ~> 1.1.0
+github "Quick/Nimble" ~> 6.0.1
+----
 
+image::image10.png[]
 
+image::image11.png[]
 
+----
+#!/usr/bin/env sh
 
+if ! command -v carthage > /dev/null; then
+  printf 'Carthage is not installed.\n'
+  printf 'See https://github.com/Carthage/Carthage for install instructions.\n'
+  exit 1
+fi
 
+carthage update --platform iOS --use-submodules --no-use-binaries
+----
+image::image12.png[]
+image::image15.png[]
 
-
-Adding Dependencies to the Workspace
-
-+
-
-Since our dependencies are submodules, we need to add them to our workspace.
-Open up Carthage/Checkouts and add each dependency’s .xcodeproj to the root of the workspace. They can be dragged from Finder into the navigator of the Xcode project.
+* Adding Dependencies to the Workspace
+** Since our dependencies are submodules, we need to add them to our workspace.
+***Open up Carthage/Checkouts and add each dependency’s .xcodeproj to the root of the workspace. They can be dragged from Finder into the navigator of the Xcode project.
 
 When you’re done it should look like:
 
+image::image16.png[]
 
+* Link Runtime Dependencies
+** With “IOSStarter” selected in the Navigator and the “IOSStarter” target selected on the middle sidebar, select the “Build Phases” tab and expand the “Link binary with libraries” section.
+** Click the “+” icon and select the Alamofire.framework from the Alamofire IOS target.
+** Click “Add”.
 
-Link Runtime Dependencies
-With “IOSStarter” selected in the Navigator and the “IOSStarter” target selected on the middle sidebar, select the “Build Phases” tab and expand the “Link binary with libraries” section.
-+
-Click the “+” icon and select the Alamofire.framework from the Alamofire IOS target.
-+
-Click “Add”.
+image::image17.png[]
+image::image18.png[]
 
+* Link Development Dependencies
+** Select the “IOSStarterTests” target from the middle sidebar.
+** Using the same process as before, add the Quick and Nimble frameworks to the “Link binary with libraries” section for this target.
 
+_When adding dependencies to each target, Xcode will automatically add them to the “Framework Search Paths” under the “Build Settings” tab. We can remove these from the “IOSStarter” and “IOSStarterTests” target because Xcode treats them as implicit dependencies due to them being in the same workspace._
 
-Link Development Dependencies
-Select the “IOSStarterTests” target from the middle sidebar.
-+
-Using the same process as before, add the Quick and Nimble frameworks to the “Link binary with libraries” section for this target.
-+
+** Select the target, locate the “Framework Search Paths” setting, highlight it, and press “backspace” on your keyboard.
 
-When adding dependencies to each target, Xcode will automatically add them to the “Framework Search Paths” under the “Build Settings” tab. We can remove these from the “IOSStarter” and “IOSStarterTests” target because Xcode treats them as implicit dependencies due to them being in the same workspace.
-+
-Select the target, locate the “Framework Search Paths” setting, highlight it, and press “backspace” on your keyboard.
+image::image19.png[]
+** Next, look in the “IOSStarter” project in the Navigator; you’ll see there are three new frameworks in Frameworks:
 
-
-Next, look in the “IOSStarter” project in the Navigator; you’ll see there are three new frameworks in Frameworks:
-
+image::image20.png[]
+== Introducing fastlane
+== Writing first TDD Quick/Nimble test
+== Running test using fastlane in Jenkins
 
 brew update && brew install jenkins
 brew services start jenkins
