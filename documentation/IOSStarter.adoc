@@ -181,8 +181,63 @@ image::image19.png[]
 
 image::image20.png[]
 == Introducing fastlane
+* If you don't have fastlane installed
+
+image::brew_install_fastlane.png[]
+
+* To begin:
+
+image::fastlane_init.png[]
+
+* Open your Fastfile
+
+image::open_fastfile.png[]
+
+* Add a new lane for building
+
+image::add_lane.png[]
+----
+desc "Build artifact"
+  lane :build_artifact do
+    gym(scheme: "IOSStarter", workspace: "IOSStarter.xcworkspace")
+  end
+----
+
+* Run your lane to build
+
+image::fastlane_build.png[]
+
+** If you encounter codesigning issues (exit code 65):
+*** Add a lane to Fastfile for signing and run this lane
+
+image::sign_lane.png[]
+
+----
+desc "Codesign"
+lane :sign do
+  cert
+  sigh
+  gym(scheme: "IOSStarter", workspace: "IOSStarter.xcworkspace")
+end
+----
+image::run_sign_lane.png[]
+
+
+
+* Add parameters to scan in your test lane
+
+image::fastlane_test.png[]
+
+----
+desc "Runs all the tests"
+  lane :test do
+    scan(scheme: "IOSStarter", workspace: "IOSStarter.xcworkspace", device: "iPhone 7", test_without_building: false)
+  end
+----
+
 == Writing first TDD Quick/Nimble test
 == Running test using fastlane in Jenkins
-
+----
 brew update && brew install jenkins
 brew services start jenkins
+----
