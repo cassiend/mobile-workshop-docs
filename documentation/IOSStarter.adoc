@@ -173,10 +173,22 @@ image::image19.png[]
 
 image::image20.png[]
 
+== Adding Your First Test File
+ * Right click on your test target to add "New File..."
 
+image::add_new_test_file.png[]
 
-== Introducing fastlane
-* If you don't have fastlane installed
+* Scroll down to the "Quick Templates" section. Select "Quick Spec Class", then follow the prompt to name your new file.
+
+image::select_quick_spec_class.png[]
+image::name_spec.png[]
+
+* Begin testing. Quick and Nimble follow a BDD-style pattern using `describe` and `it`. See the documentation examples http://quick.readthedocs.io/en/latest/#quick-examples-and-example-groups[here].
+
+image::write_your_spec.png[]
+
+== Introducing Fastlane
+* If you don't have fastlane installed, get it with
 
 image::brew_install_fastlane.png[]
 
@@ -230,8 +242,7 @@ desc "Runs all the tests"
   end
 ----
 
-== Writing first TDD Quick/Nimble test
-== Running test using fastlane in Jenkins
+== Running test using Fastlane in Jenkins
 ----
 brew update && brew install jenkins
 brew services start jenkins
