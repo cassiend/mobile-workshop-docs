@@ -1,21 +1,21 @@
 :imagesdir: ./images
 
 = Setting up a new project in IOS using Swift 3
-Cassie Shum & Lily Evans <cshum@thoughtworks.com>
-v1.0, 2017-03-01
+Cassie Shum, Lily Evans, Rebecca Eakins <cshum@thoughtworks.com>
+
+v1.1, 2017-04-26
 
 NOTE: This document is a work in progress
 
 
 == Setting up Xcode with Carthage using Alamofire, Quick and Nimble
 
-
 * Select File → New → Project.
 
 image::image1.png[Screenshot to set up project]
 image::image2.png[]
 
-* Do not create a git repo at this point
+* Do not create a git repo at this point. If you are using version control, it is preferable to manage that via the command line.
 
 image::image3.png[]
 image::image4.png[]
@@ -24,7 +24,6 @@ image::image4.png[]
 * Put the project in a workspace due to adding Carthage dependencies as submodules (they must be in a workspace for Xcode to compile)
 
 image::image5.png[]
-
 
 * Close the Xcode project with File → Close Project.
 * Open the workspace with File → Open.
@@ -36,79 +35,72 @@ image::image6.png[]
 
 image::image7.png[]
 
-//should we have this here if we don't have a git repo
-// * Create a .gitignore file and add the following file types to ignore from git repository
-//
-//
-// ----
-// # Xcode
-//
-// ## Build generated
-// build/
-// DerivedData/
-//
-// ## Various settings
-// *.pbxuser
-// !default.pbxuser
-// *.mode1v3
-// !default.mode1v3
-// *.mode2v3
-// !default.mode2v3
-// *.perspectivev3
-// !default.perspectivev3
-// xcuserdata/
-//
-// ## Other
-// *.moved-aside
-// *.xcuserstate
-//
-// ## Obj-C/Swift specific
-// *.hmap
-// *.ipa
-// *.dSYM.zip
-// *.dSYM
-//
-// ## Playgrounds
-// timeline.xctimeline
-// playground.xcworkspace
-//
-// # Swift Package Manager
-// #
-// # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-// # Packages/
-// .build/
-//
-// # CocoaPods
-// #
-// # We recommend against adding the Pods directory to your .gitignore. However
-// # you should judge for yourself, the pros and cons are mentioned at:
-// # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-// #
-// # Pods/
-//
-// # Carthage
-// #
-// # Add this line if you want to avoid checking in source code from Carthage dependencies.
-// # Carthage/Checkouts
-//
-// Carthage/Build
-//
-// # fastlane
-// #
-// # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-// # screenshots whenever they are needed.
-// # For more information about the recommended setup visit:
-// # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
-//
-// fastlane/report.xml
-// fastlane/Preview.html
-// fastlane/screenshots
-// fastlane/test_output
-// fastlane/xcov_report
-// fastlane/README.md
-//
-// *.mobileprovision
-// ----
+* If you are using git to track your work, create a `.gitignore` file and add the following file types to ignore from git repository
+----
+# Xcode
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+.build/
+
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+# Pods/
+
+# Carthage
+Carthage/
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/xcov_report
+fastlane/README.md
+
+*.mobileprovision
+----
 
 * Install Carthage
 ----
