@@ -21,7 +21,7 @@ image::image3.png[]
 image::image4.png[]
 
 * Go to File → Save As Workspace and save it in the same directory as your Xcode project with the same name.
-* Put the project in a workspace due to adding Carthage dependencies as submodules (they must be in a workspace for Xcode to compile)
+* Put the project in a workspace so you can add Carthage dependencies as submodules (they must be in a workspace for Xcode to compile).
 
 image::image5.png[]
 
@@ -31,7 +31,7 @@ image::image5.png[]
 
 image::image6.png[]
 
-* Check the Share box
+* Check the Share box. This ensures that your changes apply across the project (i.e. with teammates), not just to your user settings.
 
 image::image7.png[]
 
@@ -148,16 +148,17 @@ image::image13.png[]
 image::image14.png[]
 
 * Adding Dependencies to the Workspace
+** Navigate to the Project Settings -> "Build Phases" section
+** Select the correct target from the left panel (e.g. IOSMVCExampleTests for Quick and Nimble)
 ** Open Carthage/Build/IOS, and drag the built frameworks to 'Linked Frameworks and Libraries'
 
 image::image15.png[]
 image::image16.png[]
 
-* In your project settings, navigate to your “Build Phases” section.
+* Navigate to the Project Settings -> "Build Phases" section
 * Add a “New Copy Files Phase”
 
 image::image17.png[]
-
 
 * Go down to the “Copy Files” section
 * Under “Destination” select “Frameworks”
@@ -168,7 +169,7 @@ image::image18.png[]
 
 image::image19.png[]
 
-* In the end, you should have the libraries setup in each target (repeat for test targets)
+* In the end, you should have the libraries setup in each target (repeat for each one)
 
 image::image20.png[]
 
