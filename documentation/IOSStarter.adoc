@@ -1,30 +1,29 @@
 :imagesdir: ./images
 
 = Setting up a new project in IOS using Swift 3
-Cassie Shum & Lily Evans <cshum@thoughtworks.com>
-v1.0, 2017-03-01
+Cassie Shum, Lily Evans, Rebecca Eakins <cshum@thoughtworks.com>
+
+v1.1, 2017-04-26
 
 NOTE: This document is a work in progress
 
 
 == Setting up Xcode with Carthage using Alamofire, Quick and Nimble
 
-
 * Select File → New → Project.
 
 image::image1.png[Screenshot to set up project]
 image::image2.png[]
 
-* Do not create a git repo at this point
+* Do not create a git repo at this point. If you are using version control, it is preferable to manage that via the command line.
 
 image::image3.png[]
 image::image4.png[]
 
 * Go to File → Save As Workspace and save it in the same directory as your Xcode project with the same name.
-* Put the project in a workspace due to adding Carthage dependencies as submodules (they must be in a workspace for Xcode to compile)
+* Put the project in a workspace so you can add Carthage dependencies as submodules (they must be in a workspace for Xcode to compile).
 
 image::image5.png[]
-
 
 * Close the Xcode project with File → Close Project.
 * Open the workspace with File → Open.
@@ -32,83 +31,76 @@ image::image5.png[]
 
 image::image6.png[]
 
-* Check the Share box
+* Check the Share box. This ensures that your changes apply across the project (i.e. with teammates), not just to your user settings.
 
 image::image7.png[]
 
-//should we have this here if we don't have a git repo
-// * Create a .gitignore file and add the following file types to ignore from git repository
-//
-//
-// ----
-// # Xcode
-//
-// ## Build generated
-// build/
-// DerivedData/
-//
-// ## Various settings
-// *.pbxuser
-// !default.pbxuser
-// *.mode1v3
-// !default.mode1v3
-// *.mode2v3
-// !default.mode2v3
-// *.perspectivev3
-// !default.perspectivev3
-// xcuserdata/
-//
-// ## Other
-// *.moved-aside
-// *.xcuserstate
-//
-// ## Obj-C/Swift specific
-// *.hmap
-// *.ipa
-// *.dSYM.zip
-// *.dSYM
-//
-// ## Playgrounds
-// timeline.xctimeline
-// playground.xcworkspace
-//
-// # Swift Package Manager
-// #
-// # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-// # Packages/
-// .build/
-//
-// # CocoaPods
-// #
-// # We recommend against adding the Pods directory to your .gitignore. However
-// # you should judge for yourself, the pros and cons are mentioned at:
-// # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-// #
-// # Pods/
-//
-// # Carthage
-// #
-// # Add this line if you want to avoid checking in source code from Carthage dependencies.
-// # Carthage/Checkouts
-//
-// Carthage/Build
-//
-// # fastlane
-// #
-// # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-// # screenshots whenever they are needed.
-// # For more information about the recommended setup visit:
-// # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
-//
-// fastlane/report.xml
-// fastlane/Preview.html
-// fastlane/screenshots
-// fastlane/test_output
-// fastlane/xcov_report
-// fastlane/README.md
-//
-// *.mobileprovision
-// ----
+* If you are using git to track your work, create a `.gitignore` file and add the following file types to ignore from git repository
+----
+# Xcode
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+.build/
+
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+# Pods/
+
+# Carthage
+Carthage/
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/xcov_report
+fastlane/README.md
+
+*.mobileprovision
+----
 
 * Install Carthage
 ----
@@ -156,16 +148,17 @@ image::image13.png[]
 image::image14.png[]
 
 * Adding Dependencies to the Workspace
+** Navigate to the Project Settings -> "Build Phases" section
+** Select the correct target from the left panel (e.g. IOSMVCExampleTests for Quick and Nimble)
 ** Open Carthage/Build/IOS, and drag the built frameworks to 'Linked Frameworks and Libraries'
 
 image::image15.png[]
 image::image16.png[]
 
-* In your project settings, navigate to your “Build Phases” section.
+* Navigate to the Project Settings -> "Build Phases" section
 * Add a “New Copy Files Phase”
 
 image::image17.png[]
-
 
 * Go down to the “Copy Files” section
 * Under “Destination” select “Frameworks”
@@ -176,14 +169,26 @@ image::image18.png[]
 
 image::image19.png[]
 
-* In the end, you should have the libraries setup in each target (repeat for test targets)
+* In the end, you should have the libraries setup in each target (repeat for each one)
 
 image::image20.png[]
 
+== Adding Your First Test File
+ * Right click on your test target to add "New File..."
 
+image::add_new_test_file.png[]
 
-== Introducing fastlane
-* If you don't have fastlane installed
+* Scroll down to the "Quick Templates" section. Select "Quick Spec Class", then follow the prompt to name your new file.
+
+image::select_quick_spec_class.png[]
+image::name_spec.png[]
+
+* Begin testing. Quick and Nimble follow a BDD-style pattern using `describe` and `it`. See the documentation examples http://quick.readthedocs.io/en/latest/#quick-examples-and-example-groups[here].
+
+image::write_your_spec.png[]
+
+== Introducing Fastlane
+* If you don't have fastlane installed, get it with
 
 image::brew_install_fastlane.png[]
 
@@ -237,8 +242,7 @@ desc "Runs all the tests"
   end
 ----
 
-== Writing first TDD Quick/Nimble test
-== Running test using fastlane in Jenkins
+== Running test using Fastlane in Jenkins
 ----
 brew update && brew install jenkins
 brew services start jenkins
